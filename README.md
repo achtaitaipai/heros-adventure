@@ -75,3 +75,16 @@
 	</body>
 </html>
 ```
+
+## Palette
+
+0. black
+1. white
+2. gray
+3. blue
+4. red
+5. yellow
+6. orange
+7. green
+8. pink
+9. brown
