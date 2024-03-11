@@ -78,13 +78,15 @@
 
 ## Palette
 
-0. black
-1. white
-2. gray
-3. blue
-4. red
-5. yellow
-6. orange
-7. green
-8. pink
-9. brown
+| index | color  | code    |
+| ----- | ------ | ------- |
+| 0     | black  | #212529 |
+| 1     | white  | #f8f9fa |
+| 2     | gray   | #ced4da |
+| 3     | blue   | #228be6 |
+| 4     | red    | #fa5252 |
+| 5     | yellow | #fcc419 |
+| 6     | orange | #ff922b |
+| 7     | green  | #40c057 |
+| 8     | pink   | #f06595 |
+| 9     | brown  | #a52f01 |
