@@ -1,4 +1,11 @@
-## Game
+# Heros Adventure
+
+## Getting started
+
+- Create a new file `mygame.html`
+- Copy and paste the code below
+- Save the file
+- Open `mygame.html` with a modern browser
 
 ```html
 <!doctype html>
