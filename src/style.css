@@ -1,0 +1,89 @@
+body {
+	overscroll-behavior: none;
+}
+.heros-adventure_wrapper,
+.heros-adventure_wrapper * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.heros-adventure_wrapper {
+	position: absolute;
+	left: calc(50% - var(--side-size) * 0.5);
+	top: calc(50% - var(--side-size) * 0.5);
+	width: var(--side-size);
+	height: var(--side-size);
+	display: grid;
+	outline: none;
+	margin-inline: auto;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
+	font-weight: bold;
+}
+.heros-adventure_canvas {
+	margin: auto;
+	object-fit: contain;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	outline: none;
+	&[data-orientation='horizontal'] {
+		width: 100%;
+	}
+	&[data-orientation='vertical'] {
+		height: 100%;
+	}
+}
+
+.heros-adventure_dialog {
+	box-sizing: border-box;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.4rem;
+	left: 50%;
+	bottom: 1rem;
+	transform: translate(-50%, 0%);
+	width: 19rem;
+	height: 5rem;
+	overflow: hidden;
+	background: white;
+	border: solid 4px;
+	padding-inline: 0.4rem;
+	pointer-events: none;
+
+	& > p {
+		line-height: 1;
+		font-size: 1.2rem;
+		margin: 0;
+		white-space: nowrap;
+		padding: 0;
+	}
+}
+
+.heros-adventure_messageBox {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	background: black;
+	color: white;
+	text-align: center;
+	font-size: 2rem;
+	padding: 1rem 2rem;
+}
+
+.heros-adventure_messageBox > * {
+	margin-block: auto;
+}
+
+.heros-adventure_messageBox > :first-child {
+	font-size: 4rem;
+	margin-block-start: auto;
+}
+
+.heros-adventure_messageBox > :last-child:not(:first-child, :nth-child(2)) {
+	margin-block-end: 0;
+	text-align: right;
+	font-style: italic;
+}
