@@ -4,6 +4,11 @@
 	"description": "",
 	"main": "dist/index.mjs",
 	"types": "dist/index.d.mts",
+	"type": "module",
+	"files": [
+		"dist/index.mjs",
+		"dist/index.d.mts"
+	],
 	"scripts": {
 		"dev": "tsup --watch",
 		"lint": "tsc",
