@@ -31,6 +31,7 @@
                 `,
 					position: [4, 4],
 				},
+
 				templates: {
 					X: {
 						sprite: 9,
@@ -46,16 +47,17 @@
 						dialog: "I'm grass.",
 					},
 				},
+
 				map: `
-            XXXXXXXXXXXXXXXX
-            X..............X
-            X...........G..X
-            X..............X
-            X..............X
-            X....R.........X
-            X..............X
-            XXXXXXXXXXXXXXXX
-		`,
+                    XXXXXXXXXXXXXXXX
+                    X..............X
+                    X...........G..X
+                    X..............X
+                    X..............X
+                    X....R.........X
+                    X..............X
+                    XXXXXXXXXXXXXXXX
+                `,
 			})
 
 			startGame({
