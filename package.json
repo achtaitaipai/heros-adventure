@@ -2,12 +2,12 @@
 	"name": "heros-adventure",
 	"version": "0.0.1",
 	"description": "",
-	"main": "dist/index.mjs",
-	"types": "dist/index.d.mts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"type": "module",
 	"files": [
-		"dist/index.mjs",
-		"dist/index.d.mts"
+		"dist/index.js",
+		"dist/index.d.ts"
 	],
 	"scripts": {
 		"dev": "tsup --watch",
