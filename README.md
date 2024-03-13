@@ -272,6 +272,9 @@ import { createGame, createSound } from 'https://unpkg.com/heros-adventure'
 createGame({
 	//...
 	templates:{
+		X:{
+			sprite: 0
+		},
 		G: {
 			sprite: 7
 		},
@@ -301,7 +304,7 @@ By default, the camera adjusts each time the player leaves the screen.
 
 For smoother camera movement, you can define `cameraWidth` and `cameraHeight`. These parameters determine an invisible rectangle at the center of the screen. Whenever the player moves beyond this rectangle, the camera adjusts by one cell to keep the player within the rectangle.
 
-> ![WARNING]
+> [!WARNING]
 > For smooth camera movement, `cameraWidth` **and** `cameraHeight` must be defined.
 
 ## Other Configuration Parameters
