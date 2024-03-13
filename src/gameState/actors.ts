@@ -5,6 +5,7 @@ import {
 	TemplateEventsListeners as TemplatesEventsListeners,
 	Position,
 } from '../types.js'
+import { createActorProxy } from './actorProxy.js'
 import { GameStateParams, Template, Templates } from './types.js'
 
 export const createActorsStore = <T extends Templates>(
@@ -66,86 +67,14 @@ export const createActorsStore = <T extends Templates>(
 				return [...actors, createActorFromTemplate(x, y, symbol, template)]
 			})
 	}
-	const clearCell = (x: number, y: number) => {
-		store.update((actors) => {
-			return [...actors].filter(
-				({ position }) => position[0] !== x || position[1] !== y,
-			)
-		})
-	}
-	const getCell = (...position: Position): ActorState => {
-		const getActor = () =>
-			actorsValues.find((el) => compareVectors(el.position, position))
-		const setActor = <T extends keyof ActorState>(
-			key: T,
-			value: ActorState[T],
-		) => {
-			store.update((currentStore) => {
-				for (let index = 0; index < currentStore.length; index++) {
-					const actor = currentStore[index]
-					if (
-						!actor ||
-						currentStore[index] === undefined ||
-						!compareVectors(actor.position, position)
-					)
-						continue
-					currentStore[index]![key] = value
-				}
-				return currentStore
-			})
-		}
-		return {
-			get sprite() {
-				return getActor()?.sprite ?? null
-			},
-			set sprite(value: ActorState['sprite']) {
-				setActor('sprite', value)
-			},
-			get solid() {
-				return getActor()?.solid ?? false
-			},
-			set solid(value: ActorState['solid']) {
-				setActor('solid', value)
-			},
-			get sound() {
-				return getActor()?.sound ?? null
-			},
-			set sound(value: ActorState['sound']) {
-				setActor('sound', value)
-			},
-			get position() {
-				return getActor()?.position ?? [-1, -1]
-			},
-			get dialog() {
-				return getActor()?.dialog ?? null
-			},
-			set dialog(value: ActorState['dialog']) {
-				setActor('dialog', value)
-			},
-			get visible() {
-				return getActor()?.visible ?? false
-			},
-			set visible(value: ActorState['visible']) {
-				setActor('visible', value)
-			},
-			get end() {
-				return getActor()?.end ?? null
-			},
-			set end(value: ActorState['end']) {
-				setActor('end', value)
-			},
-			get symbol() {
-				return getActor()?.symbol ?? ''
-			},
-		}
-	}
+	const getCell = (...position: Position) => createActorProxy(position, store)
+
 	const reset = () => store.set(createActors(mapGrid, templates))
 	return {
 		getCell,
 		setCell,
 		setAll,
 		addToCell,
-		clearCell,
 		reset,
 		_store: store,
 		_eventsListeners: eventsListeners,

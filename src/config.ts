@@ -3,14 +3,16 @@ import { SoundPlayerParams } from './soundPlayer.js'
 import { InputsHandlerParams } from './inputs.js'
 import { RendererParams } from './renderer.js'
 import { WrapperParams } from './wrapperElement.js'
+import { GameStateParams, Templates } from './gameState/types.js'
 
-export type Config = WrapperParams &
+export type Config<T extends Templates> = WrapperParams &
 	RendererParams &
 	InputsHandlerParams &
 	SoundPlayerParams &
-	CameraParams & { title?: string }
+	CameraParams &
+	GameStateParams<T> & { title?: string }
 
-export const defaultConfig: Config = {
+export const defaultConfig: Config<{}> = {
 	colors: [
 		'#212529', //black
 		'#f8f9fa', //white
@@ -36,4 +38,18 @@ export const defaultConfig: Config = {
 		DOWN: 'ArrowDown',
 		ACTION: ['Enter', 'Space'],
 	},
+	player: {
+		sprite: 0,
+	},
+	templates: {},
+	map: `
+		........
+		........
+		........
+		........
+		........
+		........
+		........
+		........
+	`,
 }

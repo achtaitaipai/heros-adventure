@@ -6,20 +6,22 @@ import { addVectors, compareVectors } from './lib/vector.js'
 import { MessageBox } from './messageBox.js'
 import { ActorState, GameEvent, Position } from './types.js'
 import { Camera } from './camera.js'
+import { Templates } from './gameState/types.js'
+import { ActorProxy } from './gameState/actorProxy.js'
 
 export type GameLoopParams = {
 	soundPlayer: SoundPlayer
 	dialog: Dialog
-	gameState: GameState
+	gameState: GameState<Templates>
 	messageBox: MessageBox
 	camera: Camera
 }
 
 class GameLoop {
-	gameState: GameState
+	gameState: GameState<Templates>
 	soundPlayer: SoundPlayer
 	dialog: Dialog
-	event: (target: ActorState) => GameEvent
+	event: (target: ActorProxy) => GameEvent
 	messageBox: MessageBox
 	camera: Camera
 
@@ -55,13 +57,13 @@ class GameLoop {
 			await this.gameState.actors._eventsListeners
 				.get(actorOnNextCell.symbol ?? '')
 				?.onCollide?.(this.event(actorOnNextCell))
-			this.gameState.counts._incrCollision(actorOnNextCell.symbol)
+			this.gameState.counts._incrCollision(actorOnNextCell.symbol, nextCell)
 		} else {
 			if (actorOnCurrentCell) {
 				this.gameState.actors._eventsListeners
 					.get(actorOnNextCell.symbol ?? '')
 					?.onLeave?.(this.event(actorOnCurrentCell))
-				this.gameState.counts._incrLeave(actorOnCurrentCell.symbol)
+				this.gameState.counts._incrLeave(actorOnCurrentCell.symbol, currentCell)
 			}
 			if (actorOnNextCell) {
 				const enterDialog = actorOnNextCell?.dialog
@@ -76,7 +78,7 @@ class GameLoop {
 						.get(actorOnNextCell.symbol ?? '')
 						?.onEnter?.(this.event(actorOnNextCell))
 				}
-				this.gameState.counts._incrEnter(actorOnNextCell.symbol)
+				this.gameState.counts._incrEnter(actorOnNextCell.symbol, nextCell)
 			}
 			//move the player if the position is not changed
 			if (compareVectors(currentCell, this.gameState.player.position))

@@ -17,7 +17,7 @@ export const createPlayer = (params: PlayerParams) => {
 	})
 
 	return {
-		store,
+		_store: store,
 		get sprite() {
 			return sprite
 		},

@@ -1,6 +1,7 @@
 import { Dialog } from './dialog.js'
 import { SoundPlayer } from './soundPlayer.js'
 import { MessageBox } from './messageBox.js'
+import { ActorProxy } from './gameState/actorProxy.js'
 
 export type Tile = string | number
 
@@ -17,7 +18,7 @@ export type TemplateEventsListeners = {
 export type GameEvent = {
 	playSound: SoundPlayer['play']
 	openDialog: Dialog['open']
-	target: ActorState
+	target: ActorProxy
 	openMessage: MessageBox['open']
 }
 

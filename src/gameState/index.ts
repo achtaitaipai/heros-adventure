@@ -4,9 +4,9 @@ import { createCounts } from './counts.js'
 import { createPlayer } from './player.js'
 import { GameStateParams, Templates } from './types.js'
 
-export type GameState = ReturnType<typeof createGameState<Templates>>
+export type GameState<T extends Templates> = ReturnType<typeof initGameState<T>>
 
-export const createGameState = <U extends Templates>(
+export const initGameState = <U extends Templates>(
 	params: GameStateParams<U>,
 ) => {
 	const mapDimensions = getGridSize(createGridFromString(params.map))
