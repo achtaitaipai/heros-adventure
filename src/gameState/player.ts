@@ -16,8 +16,7 @@ export const createPlayer = (params: PlayerParams) => {
 		position = value.position
 	})
 
-	return {
-		_store: store,
+	const player = {
 		get sprite() {
 			return sprite
 		},
@@ -43,4 +42,5 @@ export const createPlayer = (params: PlayerParams) => {
 			})
 		},
 	}
+	return { player, playerStore: store }
 }

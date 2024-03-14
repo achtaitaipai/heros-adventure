@@ -87,7 +87,6 @@ class GameLoop {
 		if (end) {
 			await this.messageBox.open(end)
 			this.reset()
-			console.log('fin')
 		}
 	}
 

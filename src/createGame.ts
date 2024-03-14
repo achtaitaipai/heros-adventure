@@ -47,7 +47,7 @@ export const createGame = <T extends Templates>(
 		renderer.render([...actors, gameState.player], camera.position)
 	})
 
-	gameState.player._store.subscribe((player) => {
+	gameState.playerStore.subscribe((player) => {
 		camera.update(gameState.player.position)
 		renderer.render([...gameState.actors._store.get(), player], camera.position)
 	})
@@ -55,11 +55,7 @@ export const createGame = <T extends Templates>(
 	if (config.title) messageBox.open(config.title)
 
 	const gameApi = {
-		player: {
-			sprite: gameState.player.sprite,
-			position: gameState.player.position,
-			reset: gameState.player.reset,
-		},
+		player: gameState.player,
 		actors: {
 			getCell: gameState.actors.getCell,
 			addToCell: gameState.actors.addToCell,
