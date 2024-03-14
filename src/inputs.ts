@@ -6,6 +6,7 @@ export type Input = 'LEFT' | 'UP' | 'RIGHT' | 'DOWN' | 'ACTION'
 
 export type InputsHandlerParams = {
 	controls: Record<Input, string | string[]>
+	autoFocus?: boolean
 }
 
 class InputsHandler {
@@ -29,7 +30,7 @@ class InputsHandler {
 		][]
 		this.onInput = onInput
 		this.wrapper = wrapper
-		this.wrapper.focus()
+		if (params.autoFocus) this.wrapper.focus()
 		this.wrapper.addEventListener('keydown', this.handleKeydown)
 		this.wrapper.addEventListener('touchstart', this.handleTouch)
 		this.wrapper.addEventListener('touchend', this.handleTouchLeave)

@@ -309,9 +309,17 @@ For smoother camera movement, you can define `cameraWidth` and `cameraHeight`. T
 
 ## Other Configuration Parameters
 
+### Title
+
+The `title` parameter allows you to define an introduction screen for your game, providing players with information or context before they begin playing.
+
 ### Background Color
 
 The background color of the game is defined by `background`. The value should be a number between 0 and 9.
+
+### Autofocus
+
+By default, the player will need to click on the game before interacting. You can set `autoFocus` to `true` if you want to prevent this behavior.
 
 ### Controls
 
