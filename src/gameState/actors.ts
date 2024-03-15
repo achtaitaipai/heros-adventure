@@ -34,7 +34,10 @@ export const createActorsStore = <T extends Templates>(
 	store.subscribe((value) => {
 		actorsValues = value
 	})
-	const setAll = (symbol: keyof T, params: Unwrap<Partial<ActorState>>) => {
+	const setAll = (
+		symbol: keyof T,
+		params: Unwrap<Partial<Omit<ActorState, 'symbol'>>>,
+	) => {
 		store.update((actors) => {
 			for (let index = 0; index < actors.length; index++) {
 				const actor = actors[index]
@@ -48,7 +51,7 @@ export const createActorsStore = <T extends Templates>(
 	const setCell = (
 		x: number,
 		y: number,
-		params: Unwrap<Partial<ActorState>>,
+		params: Unwrap<Partial<Omit<ActorState, 'symbol'>>>,
 	) => {
 		store.update((currentActors) => {
 			for (let index = 0; index < currentActors.length; index++) {
