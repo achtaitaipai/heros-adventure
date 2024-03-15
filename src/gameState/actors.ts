@@ -4,6 +4,7 @@ import {
 	ActorState,
 	TemplateEventsListeners as TemplatesEventsListeners,
 	Position,
+	Unwrap,
 } from '../types.js'
 import { createActorProxy } from './actorProxy.js'
 import { GameStateParams, Template, Templates } from './types.js'
@@ -33,7 +34,7 @@ export const createActorsStore = <T extends Templates>(
 	store.subscribe((value) => {
 		actorsValues = value
 	})
-	const setAll = (symbol: keyof T, params: Partial<ActorState>) => {
+	const setAll = (symbol: keyof T, params: Unwrap<Partial<ActorState>>) => {
 		store.update((actors) => {
 			for (let index = 0; index < actors.length; index++) {
 				const actor = actors[index]
@@ -44,7 +45,11 @@ export const createActorsStore = <T extends Templates>(
 			return actors
 		})
 	}
-	const setCell = (x: number, y: number, params: Partial<ActorState>) => {
+	const setCell = (
+		x: number,
+		y: number,
+		params: Unwrap<Partial<ActorState>>,
+	) => {
 		store.update((currentActors) => {
 			for (let index = 0; index < currentActors.length; index++) {
 				const actor = currentActors[index]

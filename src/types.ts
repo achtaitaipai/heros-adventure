@@ -32,3 +32,7 @@ export type ActorState = {
 	end: string | null
 	position: [number, number]
 }
+
+export type Unwrap<T> = {
+	[K in keyof T]: T[K]
+} & {}
