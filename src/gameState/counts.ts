@@ -21,14 +21,9 @@ export const createCounts = <T extends Templates>(
 		position: Position,
 		map: Map<string, number>,
 	) => {
-		collisionCount.set(
-			String(symbol),
-			(collisionCount.get(String(symbol)) ?? 0) + 1,
-		)
-		collisionCount.set(
-			position.join('-'),
-			(collisionCount.get(String(symbol)) ?? 0) + 1,
-		)
+		const positionKey = position.join('-')
+		map.set(String(symbol), (map.get(String(symbol)) ?? 0) + 1)
+		map.set(positionKey, (map.get(positionKey) ?? 0) + 1)
 	}
 	_reset()
 
