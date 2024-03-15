@@ -56,18 +56,14 @@ export const createGame = <T extends Templates>(
 
 	const gameApi = {
 		player: gameState.player,
-		actors: {
-			getCell: gameState.actors.getCell,
-			addToCell: gameState.actors.addToCell,
-			setCell: gameState.actors.setCell,
-			setAll: gameState.actors.setAll,
-			reset: gameState.actors.reset,
-		},
-		counts: {
-			getCollision: gameState.counts.getCollision,
-			getEnter: gameState.counts.getEnter,
-			getLeave: gameState.counts.getLeave,
-		},
+		getCell: gameState.actors.getCell,
+		addToCell: gameState.actors.addToCell,
+		setCell: gameState.actors.setCell,
+		setAll: gameState.actors.setAll,
+		resetMap: gameState.actors.reset,
+		getCollisionCount: gameState.counts.getCollision,
+		getEnterCount: gameState.counts.getEnter,
+		getLeaveCount: gameState.counts.getLeave,
 	}
 	return gameApi
 }
