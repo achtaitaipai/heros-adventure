@@ -9,5 +9,6 @@ export default defineConfig({
 	outDir: 'dist', // Output directory
 	entry: ['src/index.ts'], // Entry point(s)
 	format: ['esm', 'iife'], // Output format(s)
+	globalName: 'herosAdventure',
 	injectStyle: true,
 })
