@@ -43,27 +43,33 @@ export const createGame = <T extends Templates>(
 	})
 
 	gameState.actors._store.subscribe((actors) => {
-		camera.update(gameState.player.position)
-		renderer.render([...actors, gameState.player], camera.position)
+		camera.update(gameState.player.playerProxy.position)
+		renderer.render([...actors, gameState.player.playerProxy], camera.position)
 	})
 
-	gameState.playerStore.subscribe((player) => {
-		camera.update(gameState.player.position)
+	gameState.player.playerStore.subscribe((player) => {
+		camera.update(gameState.player.playerProxy.position)
 		renderer.render([...gameState.actors._store.get(), player], camera.position)
 	})
 
 	if (config.title) messageBox.open(config.title)
 
 	const gameApi = {
-		player: gameState.player,
+		player: gameState.player.playerProxy,
 		getCell: gameState.actors.getCell,
 		addToCell: gameState.actors.addToCell,
 		setCell: gameState.actors.setCell,
 		setAll: gameState.actors.setAll,
-		resetMap: gameState.actors.reset,
 		getCollisionCount: gameState.counts.getCollision,
 		getEnterCount: gameState.counts.getEnter,
 		getLeaveCount: gameState.counts.getLeave,
+		openDialog: (text: string) => dialog.open(text),
+		playSound: (sound: string) => soundPlayer.play(sound),
+		reset: () => {
+			gameState.player.reset()
+			gameState.actors.reset()
+			gameState.counts._reset()
+		},
 	}
 	return gameApi
 }

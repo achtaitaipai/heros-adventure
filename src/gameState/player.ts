@@ -15,8 +15,14 @@ export const createPlayer = (params: PlayerParams) => {
 		sprite = value.sprite ?? null
 		position = value.position
 	})
+	const reset = () => {
+		store.set({
+			sprite: initialSprite,
+			position: initialPosition,
+		})
+	}
 
-	const player = {
+	const playerProxy = {
 		get sprite() {
 			return sprite
 		},
@@ -35,12 +41,6 @@ export const createPlayer = (params: PlayerParams) => {
 				position: value,
 			})
 		},
-		reset: () => {
-			store.set({
-				sprite: initialSprite,
-				position: initialPosition,
-			})
-		},
 	}
-	return { player, playerStore: store }
+	return { playerProxy, playerStore: store, reset }
 }

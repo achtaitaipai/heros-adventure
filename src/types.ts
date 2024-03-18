@@ -15,12 +15,7 @@ export type TemplateEventsListeners = {
 	onLeave?: (e: GameEvent) => any
 }
 
-export type GameEvent = {
-	playSound: SoundPlayer['play']
-	openDialog: Dialog['open']
-	target: ActorProxy
-	openMessage: MessageBox['open']
-}
+export type GameEvent = ActorProxy
 
 export type ActorState = {
 	symbol: string | number | symbol

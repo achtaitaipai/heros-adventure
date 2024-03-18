@@ -21,7 +21,6 @@ class GameLoop {
 	gameState: GameState<Templates>
 	soundPlayer: SoundPlayer
 	dialog: Dialog
-	event: (target: ActorProxy) => GameEvent
 	messageBox: MessageBox
 	camera: Camera
 
@@ -31,16 +30,10 @@ class GameLoop {
 		this.dialog = params.dialog
 		this.messageBox = params.messageBox
 		this.camera = params.camera
-		this.event = (target) => ({
-			target,
-			playSound: (sound) => this.soundPlayer.play(sound),
-			openDialog: (text) => this.dialog.open(text),
-			openMessage: (text) => this.messageBox.open(text),
-		})
 	}
 
 	async update(input: Input) {
-		const currentCell = this.gameState.player.position
+		const currentCell = this.gameState.player.playerProxy.position
 		const nextCell = addVectors(currentCell, directions[input])
 		if (!this.isCellOnScreen(nextCell)) return
 		const actorOnCurrentCell = this.gameState.actors.getCell(...currentCell)
@@ -56,13 +49,14 @@ class GameLoop {
 
 			await this.gameState.actors._eventsListeners
 				.get(actorOnNextCell.symbol ?? '')
-				?.onCollide?.(this.event(actorOnNextCell))
+				?.onCollide?.(actorOnNextCell)
 			this.gameState.counts._incrCollision(actorOnNextCell.symbol, nextCell)
 		} else {
 			if (actorOnCurrentCell) {
+				console.log(actorOnCurrentCell.symbol)
 				this.gameState.actors._eventsListeners
-					.get(actorOnNextCell.symbol ?? '')
-					?.onLeave?.(this.event(actorOnCurrentCell))
+					.get(actorOnCurrentCell.symbol ?? '')
+					?.onLeave?.(actorOnCurrentCell)
 				this.gameState.counts._incrLeave(actorOnCurrentCell.symbol, currentCell)
 			}
 			if (actorOnNextCell) {
@@ -71,18 +65,20 @@ class GameLoop {
 					this.dialog.open(enterDialog).then(() => {
 						this.gameState.actors._eventsListeners
 							.get(actorOnNextCell.symbol ?? '')
-							?.onEnter?.(this.event(actorOnNextCell))
+							?.onEnter?.(actorOnNextCell)
 					})
 				else {
 					this.gameState.actors._eventsListeners
 						.get(actorOnNextCell.symbol ?? '')
-						?.onEnter?.(this.event(actorOnNextCell))
+						?.onEnter?.(actorOnNextCell)
 				}
 				this.gameState.counts._incrEnter(actorOnNextCell.symbol, nextCell)
 			}
 			//move the player if the position is not changed
-			if (compareVectors(currentCell, this.gameState.player.position))
-				this.gameState.player.position = nextCell
+			if (
+				compareVectors(currentCell, this.gameState.player.playerProxy.position)
+			)
+				this.gameState.player.playerProxy.position = nextCell
 		}
 		if (end) {
 			await this.messageBox.open(end)

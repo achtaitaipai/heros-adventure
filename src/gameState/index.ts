@@ -10,13 +10,12 @@ export const initGameState = <U extends Templates>(
 	params: GameStateParams<U>,
 ) => {
 	const mapDimensions = getGridSize(createGridFromString(params.map))
-	const { player, playerStore } = createPlayer(params.player)
+	const player = createPlayer(params.player)
 	const actors = createActorsStore<U>(params)
 	const counts = createCounts<U>(params)
 
 	return {
 		player,
-		playerStore,
 		mapDimensions,
 		counts,
 		actors,
