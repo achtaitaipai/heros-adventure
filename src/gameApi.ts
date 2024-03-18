@@ -15,6 +15,7 @@ export const initGameApi = <T extends Templates>(
 		addToCell: gameState.actors.addToCell,
 		setCell: gameState.actors.setCell,
 		setAll: gameState.actors.setAll,
+		removeAll: gameState.actors.removeAll,
 		getCollisionCount: gameState.counts.getCollision,
 		getEnterCount: gameState.counts.getEnter,
 		getLeaveCount: gameState.counts.getLeave,

@@ -48,6 +48,9 @@ export const createActorsStore = <T extends Templates>(
 			return actors
 		})
 	}
+	const removeAll = (symbol: keyof T) => {
+		store.update((actors) => actors.filter((el) => el.symbol !== symbol))
+	}
 	const setCell = (
 		x: number,
 		y: number,
@@ -82,6 +85,7 @@ export const createActorsStore = <T extends Templates>(
 		getCell,
 		setCell,
 		setAll,
+		removeAll,
 		addToCell,
 		reset,
 		_store: store,
