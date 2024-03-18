@@ -1,6 +1,7 @@
 import { initCamera } from './camera.js'
 import { Config, defaultConfig } from './config.js'
 import { initDialog } from './dialog.js'
+import { initGameApi } from './gameApi.js'
 import { initGameLoop } from './gameLoop.js'
 import { initGameState } from './gameState/index.js'
 import { Templates } from './gameState/types.js'
@@ -53,23 +54,5 @@ export const createGame = <T extends Templates>(
 	})
 
 	if (config.title) messageBox.open(config.title)
-
-	const gameApi = {
-		player: gameState.player.playerProxy,
-		getCell: gameState.actors.getCell,
-		addToCell: gameState.actors.addToCell,
-		setCell: gameState.actors.setCell,
-		setAll: gameState.actors.setAll,
-		getCollisionCount: gameState.counts.getCollision,
-		getEnterCount: gameState.counts.getEnter,
-		getLeaveCount: gameState.counts.getLeave,
-		openDialog: (text: string) => dialog.open(text),
-		playSound: (sound: string) => soundPlayer.play(sound),
-		reset: () => {
-			gameState.player.reset()
-			gameState.actors.reset()
-			gameState.counts._reset()
-		},
-	}
-	return gameApi
+	return initGameApi(gameState, dialog, soundPlayer)
 }
