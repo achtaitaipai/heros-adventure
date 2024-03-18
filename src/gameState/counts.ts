@@ -9,13 +9,13 @@ export const createCounts = <T extends Templates>(
 	const collisionCount = new Map<string, number>()
 	const enterCount = new Map<string, number>()
 	const leaveCount = new Map<string, number>()
+
 	const _reset = () => {
-		for (const key in params.templates) {
-			collisionCount.set(key, 0)
-			enterCount.set(key, 0)
-			leaveCount.set(key, 0)
-		}
+		collisionCount.clear()
+		enterCount.clear()
+		leaveCount.clear()
 	}
+
 	const incrMap = (
 		symbol: keyof T,
 		position: Position,
@@ -25,7 +25,6 @@ export const createCounts = <T extends Templates>(
 		map.set(String(symbol), (map.get(String(symbol)) ?? 0) + 1)
 		map.set(positionKey, (map.get(positionKey) ?? 0) + 1)
 	}
-	_reset()
 
 	return {
 		getCollision: (...args: SymbolorPosition<T>) =>
