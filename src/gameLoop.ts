@@ -8,28 +8,26 @@ import { ActorState, GameEvent, Position } from './types.js'
 import { Camera } from './camera.js'
 import { Templates } from './gameState/types.js'
 import { ActorProxy } from './gameState/actorProxy.js'
+import { Ender } from './ender.js'
 
 export type GameLoopParams = {
 	soundPlayer: SoundPlayer
 	dialog: Dialog
 	gameState: GameState<Templates>
-	messageBox: MessageBox
-	camera: Camera
+	ender: Ender
 }
 
 class GameLoop {
 	gameState: GameState<Templates>
 	soundPlayer: SoundPlayer
 	dialog: Dialog
-	messageBox: MessageBox
-	camera: Camera
+	ender: Ender
 
 	constructor(params: GameLoopParams) {
 		this.gameState = params.gameState
 		this.soundPlayer = params.soundPlayer
 		this.dialog = params.dialog
-		this.messageBox = params.messageBox
-		this.camera = params.camera
+		this.ender = params.ender
 	}
 
 	async update(input: Input) {
@@ -41,7 +39,7 @@ class GameLoop {
 		const sound = actorOnNextCell.sound
 		if (sound) this.soundPlayer.play(sound)
 
-		const end = actorOnNextCell.end
+		const endMessage = actorOnNextCell.end
 
 		if (actorOnNextCell.solid) {
 			const colliderDialog = actorOnNextCell.dialog
@@ -80,17 +78,9 @@ class GameLoop {
 			)
 				this.gameState.player.playerProxy.position = nextCell
 		}
-		if (end) {
-			await this.messageBox.open(end)
-			this.reset()
+		if (endMessage) {
+			await this.ender.play(endMessage)
 		}
-	}
-
-	reset() {
-		this.camera.reset()
-		this.gameState.player.reset()
-		this.gameState.actors.reset()
-		this.gameState.counts._reset()
 	}
 
 	isCellOnScreen([x, y]: Position) {

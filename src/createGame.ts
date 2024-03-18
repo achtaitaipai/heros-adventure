@@ -1,6 +1,7 @@
 import { initCamera } from './camera.js'
 import { Config, defaultConfig } from './config.js'
 import { initDialog } from './dialog.js'
+import { initEnder } from './ender.js'
 import { initGameApi } from './gameApi.js'
 import { initGameLoop } from './gameLoop.js'
 import { initGameState } from './gameState/index.js'
@@ -26,13 +27,13 @@ export const createGame = <T extends Templates>(
 	const renderer = initRenderer(config, wrapper)
 	const dialog = initDialog(wrapper)
 	const messageBox = initMessageBox(wrapper)
+	const ender = initEnder({ gameState, messageBox, camera })
 
 	const gameLoop = initGameLoop({
 		gameState: gameState,
 		soundPlayer: soundPlayer,
 		dialog,
-		messageBox,
-		camera,
+		ender: ender,
 	})
 
 	initInputsHandler(config, wrapper, (input) => {
@@ -54,5 +55,5 @@ export const createGame = <T extends Templates>(
 	})
 
 	if (config.title) messageBox.open(config.title)
-	return initGameApi(gameState, dialog, soundPlayer)
+	return initGameApi(gameState, dialog, soundPlayer, ender)
 }
