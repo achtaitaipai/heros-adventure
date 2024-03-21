@@ -51,7 +51,6 @@ class GameLoop {
 			this.gameState.counts._incrCollision(actorOnNextCell.symbol, nextCell)
 		} else {
 			if (actorOnCurrentCell) {
-				console.log(actorOnCurrentCell.symbol)
 				this.gameState.actors._eventsListeners
 					.get(actorOnCurrentCell.symbol ?? '')
 					?.onLeave?.(actorOnCurrentCell)
